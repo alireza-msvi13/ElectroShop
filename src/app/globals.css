@@ -2,26 +2,311 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer component {
+    input {
+        outline: none;
+    }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+    ::-webkit-scrollbar {
+        background-color: transparent;
+        width: 6px;
+    }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    ::-webkit-scrollbar-thumb {
+        background-color: #7B1FA2;
+    }
+
+    .fix-nav-active {
+        -webkit-transition: all 300ms ease-in;
+        -o-transition: all 300ms ease-in;
+        transition: all 300ms ease-in;
+        position: fixed !important;
+        -webkit-animation: fadeInDown 1s both 0.1s;
+        animation: fadeInDown 1s both 0.1s;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+
+
+    .btn {
+        margin-top: 2.5px;
+        background-color: #7B1FA2;
+        width: 140px;
+        height: 40px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+
+    }
+
+    .btn::before {
+        content: "";
+        height: 300px;
+        width: 300px;
+        background: #272729;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%) scale(0);
+        transition: .5s cubic-bezier(.25, .46, .45, .94);
+        z-index: 1;
+    }
+
+    .btn:hover::before {
+        transform: translateY(-50%) translateX(-50%) scale(1);
+    }
+
+    .btn:hover svg {
+        margin-right: .7rem;
+    }
+
+    .btn a,
+    .btn span {
+        z-index: 2;
+
+    }
+
+    .btn svg {
+        z-index: 2;
+        margin-right: 0.4rem;
+        transition: .5s cubic-bezier(.25, .46, .45, .94);
+    }
+
+
+    .mobile-nav-transition {
+        -webkit-transition: visibility 500ms ease 0ms, opacity 500ms ease 500ms, -webkit-transform 500ms ease 0ms;
+        transition: visibility 500ms ease 0ms, opacity 500ms ease 500ms, -webkit-transform 500ms ease 0ms;
+        -o-transition: transform 500ms ease 0ms, visibility 500ms ease 0ms, opacity 500ms ease 500ms;
+        transition: transform 500ms ease 0ms, visibility 500ms ease 0ms, opacity 500ms ease 500ms;
+        transition: transform 500ms ease 0ms, visibility 500ms ease 0ms, opacity 500ms ease 500ms, -webkit-transform 500ms ease 0ms;
+    }
+
+    .mobile-nav--active {
+        opacity: 1 !important;
+        -webkit-transform: translateX(0%) !important;
+        -ms-transform: translateX(0%) !important;
+        transform: translateX(0%) !important;
+        visibility: visible !important;
+    }
+
+    /* ====== swiper ======= */
+
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        padding: 22px !important;
+        background-color: #7B1FA2 !important;
+        color: white !important;
+        border-radius: 100%;
+    }
+
+    .swiper-button-next:after,
+    .swiper-rtl .swiper-button-prev:after,
+    .swiper-button-prev:after,
+    .swiper-rtl .swiper-button-next:after {
+        font-size: 1rem !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #7B1FA2 !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            display: none !important;
+        }
+    }
+
+    .mySwiper3 .swiper-slide {
+        opacity: 0.4;
+    }
+
+    .mySwiper3 .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+
+    /* ====== info box ====== */
+
+
+    .infoBoxBefore::before {
+        content: '';
+        position: absolute;
+        top: 25px;
+        left: 0;
+        width: 2px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, .08);
+    }
+
+
+    @media only screen and (max-width: 1200px) {
+
+        .infoBoxBefore::before {
+            display: none
+        }
+
+    }
+
+    /* ===== product box ===== */
+
+    .product-btn::before {
+        content: '' !important;
+        position: absolute !important;
+        left: calc(50% - 7px) !important;
+        bottom: 100% !important;
+        -webkit-transition-delay: .1s !important;
+        -o-transition-delay: .1s !important;
+        border: 7px solid transparent !important;
+        border-top-color: #7B1FA2 !important;
+        z-index: 2 !important;
+        margin-bottom: -12px !important;
+        transition-delay: .1s;
+        -webkit-transition: opacity .3s, visibility .3s, -webkit-transform .3s cubic-bezier(.71, 1.7, .77, 1.24);
+        transition: opacity .3s, visibility .3s, transform .3s cubic-bezier(.71, 1.7, .77, 1.24), -webkit-transform .3s cubic-bezier(.71, 1.7, .77, 1.24);
+        -o-transition: opacity .3s, visibility .3s, transform .3s cubic-bezier(.71, 1.7, .77, 1.24);
+        opacity: 0;
+        visibility: hidden;
+    }
+
+
+    .product-btn:hover::before {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateY(-8px);
+        -ms-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+
+    .view::after {
+        content: 'مشاهده محصول';
+    }
+
+    .addToCart::after {
+        content: "افزودن به سبد";
+    }
+
+    .addToFav::after {
+        content: 'اضافه به علاقه مندی ها';
+    }
+    .removeFromFav::after {
+        content: "حدف از علاقه مندی ها";
+    }
+
+    .compare::after {
+        content: 'مقایسه';
+    }
+
+    .product-btn::after {
+        bottom: 100%;
+        left: 50%;
+        position: absolute;
+        white-space: nowrap;
+        border-radius: 5px;
+        font-size: 11px;
+        padding: 7px 10px;
+        color: white;
+        z-index: 20;
+        background-color: #7B1FA2;
+        line-height: 1.3;
+        -webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, .1);
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, .1);
+        -webkit-transition: opacity .3s, visibility .3s, -webkit-transform .3s cubic-bezier(.71, 1.7, .77, 1.24);
+        transition: opacity .3s, visibility .3s, transform .3s cubic-bezier(.71, 1.7, .77, 1.24), -webkit-transform .3s cubic-bezier(.71, 1.7, .77, 1.24);
+        -o-transition: opacity .3s, visibility .3s, transform .3s cubic-bezier(.71, 1.7, .77, 1.24);
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transform: translateX(-50%) translateY(0);
+        -ms-transform: translateX(-50%) translateY(0);
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .product-btn:hover::after {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateX(-50%) translateY(-8px);
+        -ms-transform: translateX(-50%) translateY(-8px);
+        transform: translateX(-50%) translateY(-8px);
+    }
+
+
+
+    @media only screen and (max-width: 600px) {
+
+        .product-btn::after,
+        .product-btn::before {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+
+    }
+
+    .coundown-time::after {
+        content: ':';
+        top: 11px;
+        left: 55px;
+        font-size: 24px;
+        position: absolute;
+        color: #272729;
+    }
+
+    .footer-list a::before,
+    .footer-list-title::before {
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        border-radius: 5rem;
+    }
+
+    .footer-list-title::before {
+        content: '';
+        width: 26%;
+        height: 2px;
+        background: #7B1FA2;
+        z-index: -1;
+    }
+
+    @media only screen and (max-width: 600px) {
+
+        .product-btn::after,
+        .product-btn::before {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+
+    }
+
+
+    .recharts-responsive-container {
+        direction: ltr;
+    }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
 }
