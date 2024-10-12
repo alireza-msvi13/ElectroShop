@@ -17,20 +17,20 @@ export const categoryApi = createApi({
     reducerPath: 'categoryApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/admin/category' }),
     endpoints: (builder) => ({
-        deleteCategory: builder.mutation<ApiResponse, string>({
+        deleteCategory: builder.mutation({
             query: (id) => ({
                 url: `/${id}`, 
                 method: 'DELETE',
             }),
         }),
-        addCategory: builder.mutation<ApiResponse, Category>({
+        addCategory: builder.mutation({
             query: (body) => ({
                 url: '/',
                 method: 'POST',
                 body,
             }),
         }),
-        editCategory: builder.mutation<ApiResponse, Category>({
+        editCategory: builder.mutation({
             query: (body) => ({
                 url: `/${body.id}`,
                 method: 'PUT',

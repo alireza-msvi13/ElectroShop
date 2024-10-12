@@ -1,11 +1,7 @@
+import { CartItem } from '@/interfaces/cart';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-interface CartItem {
-    id: string;
-    price: number;
-    count: number;
-}
 
 interface CartState {
     items: CartItem[];
@@ -30,7 +26,7 @@ export const cartSlice = createSlice({
             state.totalPrice = calculateTotalPrice(state.items);
         },
         addItem(state, action: PayloadAction<CartItem>) {
-            const item = state.items.find(item => item.id === action.payload.id);
+            const item = state.items.find(item => item._id === action.payload._id);
             if (item) {
                 item.count += action.payload.count;
             } else {
@@ -42,12 +38,12 @@ export const cartSlice = createSlice({
             toast.success("محصول به سبدخرید اضافه شد");
         },
         removeItem(state, action: PayloadAction<string>) {
-            state.items = state.items.filter(item => item.id !== action.payload);
+            state.items = state.items.filter(item => item._id !== action.payload);
             state.totalPrice = calculateTotalPrice(state.items);
             localStorage.setItem('cart', JSON.stringify(state.items));
         },
         incrementItemCount(state, action: PayloadAction<string>) {
-            const item = state.items.find(item => item.id === action.payload);
+            const item = state.items.find(item => item._id === action.payload);
             if (item) {
                 item.count += 1;
                 state.totalPrice = calculateTotalPrice(state.items);
@@ -55,12 +51,12 @@ export const cartSlice = createSlice({
             }
         },
         decrementItemCount(state, action: PayloadAction<string>) {
-            const item = state.items.find(item => item.id === action.payload);
+            const item = state.items.find(item => item._id === action.payload);
             if (item && item.count > 1) {
                 item.count -= 1;
                 localStorage.setItem('cart', JSON.stringify(state.items));
             } else {
-                state.items = state.items.filter(item => item.id !== action.payload);
+                state.items = state.items.filter(item => item._id !== action.payload);
                 localStorage.setItem('cart', JSON.stringify(state.items));
             }
             state.totalPrice = calculateTotalPrice(state.items);
