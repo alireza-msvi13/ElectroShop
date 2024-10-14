@@ -1,4 +1,4 @@
-interface CartItem {
+interface ICartItem {
     _id:string
     cover:string
     price:number
@@ -10,4 +10,4 @@ interface CartItem {
 }
 
 
-export type {CartItem}
+export type {ICartItem}

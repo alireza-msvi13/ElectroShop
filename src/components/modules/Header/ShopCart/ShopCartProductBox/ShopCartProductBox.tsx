@@ -5,16 +5,10 @@ import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { removeItem, incrementItemCount, decrementItemCount } from '@/redux/slice/cartSlice';
 import { closeShopCart } from '@/redux/slice/shopCartSlice';
+import { ICartItem } from '@/interfaces/cart';
 
-interface ShopCartProductBoxProps {
-    _id: string;
-    name: string;
-    cover: string;
-    price: number;
-    count: number;
-}
 
-const ShopCartProductBox: React.FC<ShopCartProductBoxProps> = ({ _id, name, cover, price, count }) => {
+const ShopCartProductBox: React.FC<ICartItem> = ({ _id, name, cover, price, count }) => {
     const dispatch = useDispatch();
 
     const increaseProduct = () => {

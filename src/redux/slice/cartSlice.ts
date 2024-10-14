@@ -1,10 +1,10 @@
-import { CartItem } from '@/interfaces/cart';
+import { ICartItem } from '@/interfaces/cart';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 
 interface CartState {
-    items: CartItem[];
+    items: ICartItem[];
     totalPrice: number;
 }
 
@@ -13,7 +13,7 @@ const initialState: CartState = {
     totalPrice: 0,
 };
 
-const calculateTotalPrice = (items: CartItem[]): number => {
+const calculateTotalPrice = (items: ICartItem[]): number => {
     return items.reduce((total, item) => total + item.price * item.count, 0);
 };
 
@@ -21,11 +21,11 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        setCart(state, action: PayloadAction<CartItem[]>) {
+        setCart(state, action: PayloadAction<ICartItem[]>) {
             state.items = action.payload;
             state.totalPrice = calculateTotalPrice(state.items);
         },
-        addItem(state, action: PayloadAction<CartItem>) {
+        addItem(state, action: PayloadAction<ICartItem>) {
             const item = state.items.find(item => item._id === action.payload._id);
             if (item) {
                 item.count += action.payload.count;
