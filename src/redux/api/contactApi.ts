@@ -1,11 +1,5 @@
+import { IContact } from '@/interfaces/contact';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-
-interface ContactMessage {
-  name: string;
-  email: string;
-  message: string;
-}
 
 interface ApiResponse {
   success: boolean;
@@ -14,18 +8,18 @@ interface ApiResponse {
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/public' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/contact' }),
   endpoints: (builder) => ({
-    sendMessage: builder.mutation<ApiResponse, ContactMessage>({
+    sendMessage: builder.mutation<ApiResponse, IContact>({
       query: (body) => ({
-        url: '/contact',
+        url: '/',
         method: 'POST',
         body,
       }),
     }),
     deleteMessage: builder.mutation<ApiResponse, string>({
       query: (id) => ({
-        url: `/contact/${id}`,
+        url: `/${id}`,
         method: 'DELETE',
       }),
     }),
