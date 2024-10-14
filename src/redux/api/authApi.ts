@@ -32,7 +32,7 @@ export const authApi = createApi({
         body,
       }),
     }),
-    getMeUser: builder.query<ApiResponse, void>({
+    getMeUser: builder.query<any, void>({
       query: () => ({
         url: '/me',
         method: 'GET',

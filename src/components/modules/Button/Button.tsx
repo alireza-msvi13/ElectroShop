@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosArrowRoundForward } from 'react-icons/io'
 
-export default function Button({ style, text, isIconNeed = true }: { style: string, text: string, isIconNeed: boolean }) {
+export default function Button({ style, text, isIconNeed = true }: { style: string, text: string, isIconNeed?: boolean }) {
     return (
         <button className={` btn ${style || ""} text-white`}>
             <span className=' text-sm '>{text}</span>
