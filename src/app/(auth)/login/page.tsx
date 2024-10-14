@@ -34,9 +34,10 @@ export default function login() {
         } catch (err: any) {
             // console.log(err);
             // toast.error(err?.data?.message)
-            if (err.status === 401) toast.error("کاربری با این ایمیل وجود ندارد")
+            if (err.status === 400) toast.error(err.message)
+            else if (err.status === 401) toast.error("کاربری با این ایمیل وجود ندارد")
             else if (err.status === 403) toast.error("رمز عبور اشتباه است");
-            else toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
+            else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
         }
     };
 

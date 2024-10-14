@@ -32,9 +32,10 @@ const Register: React.FC = () => {
         } catch (err: any) {
             // console.error(err);
             // toast.error(err?.data?.message);
-            if (err.status === 403) toast.error("شما امکان ثبت نام در سایت رو ندارید")
+            if (err.status === 400) toast.error(err.message)
+            else if (err.status === 403) toast.error("شما امکان ثبت نام در سایت رو ندارید")
             else if (err.status === 409) toast.error("اکانتی با این شماره همراه یا ایمیل از قبل وجود دارد");
-            else toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
+            else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
         }
     };
 
