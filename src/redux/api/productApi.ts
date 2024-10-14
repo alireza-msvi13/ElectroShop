@@ -29,6 +29,13 @@ export const productApi = createApi({
       }),
       providesTags: ['Products'],
     }),
+    getOneProduct: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: 'GET',
+      }),
+      invalidatesTags: ['Products'],
+    }),
     deleteProduct: builder.mutation<ApiResponse, string>({
       query: (id) => ({
         url: `/${id}`,
@@ -61,4 +68,5 @@ export const {
   useGetProductsQuery,
   useEditProductMutation,
   useAddProductMutation,
+  useGetOneProductMutation
 } = productApi;

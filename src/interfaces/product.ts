@@ -14,6 +14,7 @@ interface IProduct {
     categoryId: ICategory;
     isProductBoxForProductsList?: boolean
     isProductBoxForRelatedProduct?: boolean
+    description?:string
 }
 
 

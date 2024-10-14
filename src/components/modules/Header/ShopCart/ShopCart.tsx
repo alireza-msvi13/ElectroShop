@@ -17,6 +17,7 @@ const ShopCart: React.FC = () => {
         const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
         dispatch(setCart(storedCart));
     }, [dispatch]);
+    
 
     return (
         <>
@@ -31,7 +32,7 @@ const ShopCart: React.FC = () => {
                     <div className="h-[52vh] overflow-y-auto border-[2px] border-mainBorder">
                         {
                             cart.map((product: any) => (
-                                <ShopCartProductBox key={product.id} {...product} />
+                                <ShopCartProductBox key={product._id} {...product} />
                             ))
                         }
                     </div>

@@ -7,42 +7,45 @@ import { removeItem, incrementItemCount, decrementItemCount } from '@/redux/slic
 import { closeShopCart } from '@/redux/slice/shopCartSlice';
 
 interface ShopCartProductBoxProps {
-    id: string;
+    _id: string;
     name: string;
     cover: string;
     price: number;
     count: number;
 }
 
-const ShopCartProductBox: React.FC<ShopCartProductBoxProps> = ({ id, name, cover, price, count }) => {
+const ShopCartProductBox: React.FC<ShopCartProductBoxProps> = ({ _id, name, cover, price, count }) => {
     const dispatch = useDispatch();
 
     const increaseProduct = () => {
-        dispatch(incrementItemCount(id));
+        dispatch(incrementItemCount(_id));
+        console.log(cover);
+        
+        
     };
 
     const reduceProduct = () => {
         if (count > 1) {
-            dispatch(decrementItemCount(id));
+            dispatch(decrementItemCount(_id));
         } else {
             removeFromCart();
         }
     };
 
     const removeFromCart = () => {
-        dispatch(removeItem(id));
+        dispatch(removeItem(_id));
     };
 
     return (
         <div className="flex justify-evenly items-center py-4 border-b-2 border-mainBorder px-2">
             <div className="min-w-[70px] border-[2px] border-mainBorder rounded-lg">
-                <Link onClick={() => dispatch(closeShopCart())} href={`/product-details/${id}`}>
-                    <Image src={`/uploads/${cover}`} alt="productImg" className='rounded-lg' width={70} height={70} />
+                <Link onClick={() => dispatch(closeShopCart())} href={`/product-details/${_id}`}>
+                    <Image src={`http://localhost:4000/public/covers/${cover}`} alt="productImg" className='rounded-lg' width={70} height={70} />
                 </Link>
             </div>
             <div className='px-2'>
                 <div className='flex items-center justify-between'>
-                    <Link onClick={() => dispatch(closeShopCart())} href={`/product-details/${id}`} className='text-xs sm:text-sm line-clamp-1 pl-2'>
+                    <Link onClick={() => dispatch(closeShopCart())} href={`/product-details/${_id}`} className='text-xs sm:text-sm line-clamp-1 pl-2'>
                         {name}
                     </Link>
                     <div className='cursor-pointer' onClick={removeFromCart}>
