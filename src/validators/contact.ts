@@ -11,7 +11,7 @@ const contactValidator = yup.object().shape({
         .max(40)
         .matches(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 
-            "email is not valid"
+            "ایمیل معتبر نیست"
         )
         .required(),
     phone: yup

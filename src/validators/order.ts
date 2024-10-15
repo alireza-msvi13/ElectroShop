@@ -6,24 +6,24 @@ const createOrderValidator = yup.object().shape({
     user: yup
         .string()
         .required()
-        .matches(/^[0-9a-fA-F]{24}$/, "Id is not valid"),
+        .matches(/^[0-9a-fA-F]{24}$/, "ایدی کاربر معتبر نیست !"),
     products: yup
         .array()
         .of(
             yup.object().shape({
                 productId: yup
                     .string()
-                    .required('Product ID is required')
-                    .matches(/^[0-9a-fA-F]{24}$/, 'Invalid Product ID format'),
+                    .required('آیدی محصول الزامی است')
+                    .matches(/^[0-9a-fA-F]{24}$/, 'آیدی محصول معتبر نیست'),
                 count: yup
                     .number()
-                    .required('count is required')
-                    .min(1, 'count must be at least 1'),
+                    .required('تعداد محصول الزامی است')
+                    .min(1, 'حداقل یک محصول الزامی است'),
                 color: yup.string().required()
             })
         )
-        .min(1, 'At least one product must be selected')
-        .required('Products are required')
+        .min(1, 'حداقل یک محصول باید انتخاب شده باشد')
+        .required('محصولات الزامی است')
 }).strict().noUnknown(true, "Unknown field is not allowed");
 
 
@@ -31,9 +31,9 @@ const changeStatusValidator = yup.object().shape({
     id: yup
         .string()
         .required()
-        .matches(/^[0-9a-fA-F]{24}$/, "Id is not valid"),
+        .matches(/^[0-9a-fA-F]{24}$/, "آیدی محصول معتبر نیست"),
     status:yup.string().oneOf(["IN_PROGRESS", "DISPATCHED", "COMPLETED"],
-         "The status must be IN_PROGRESS or DISPATCHED or COMPLETED").required()
+         "وضعیت محصول باید یکی از وضعیت های در حال اماده سازی یا ارسال شده یا کامل شده است").required()
 }).strict().noUnknown(true, "Unknown field is not allowed");
 
 export {

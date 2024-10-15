@@ -3,6 +3,11 @@ interface IUserInfo {
   email: string;
   password: string;
   phone: string;
+  _id?: string;
+  province?: string;
+  city?: string;
+  address?: string;
+  postalCode?: string;
 }
 
 interface ILoginUserBody {

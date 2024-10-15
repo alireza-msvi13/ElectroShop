@@ -1,11 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookie } from 'cookies-next';
 
-interface UserInfo {
-  id: string;
-  name?: string;
-  email?: string;
-}
 
 interface WishlistItem {
   product: string;
@@ -29,7 +24,7 @@ export const wishListApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['UserInfo'],
+  tagTypes: ['Wishlist'],
   endpoints: (builder) => ({
     addToWishlist: builder.mutation<ApiResponse, WishlistItem>({
       query: (body) => ({
@@ -37,12 +32,14 @@ export const wishListApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Wishlist'],
     }),
     removeFromWishlist: builder.mutation<ApiResponse, string>({
       query: (id) => ({
         url: `/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Wishlist'],
     }),
     isInWishlist: builder.mutation<ApiResponse, string>({
       query: (id) => ({
@@ -50,11 +47,19 @@ export const wishListApi = createApi({
         method: 'GET',
       }),
     }),
+    getUserWishlist: builder.query<any, void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+      providesTags: ['Wishlist']
+    }),
   }),
 });
 
 export const {
   useAddToWishlistMutation,
   useRemoveFromWishlistMutation,
-  useIsInWishlistMutation
+  useIsInWishlistMutation,
+  useGetUserWishlistQuery
 } = wishListApi;

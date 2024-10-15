@@ -1,35 +1,44 @@
+import { ApiResponse, IUserInfo } from '@/interfaces/auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-interface User {
-  id: string; 
-  role?: string; 
-}
-
-
-interface ApiResponse {
-  success: boolean;
-  message: string;
-}
+import { getCookie } from 'cookies-next';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api/admin/user' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:4000/user",
+    prepareHeaders: (headers) => {
+      const token = getCookie('token');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+  tagTypes: ['UserInfo'],
   endpoints: (builder) => ({
-    removeUser: builder.mutation<ApiResponse, User>({
+    removeUser: builder.mutation<ApiResponse, IUserInfo>({
       query: (body) => ({
         url: '/remove',
         method: 'DELETE',
         body,
       }),
     }),
-    banUser: builder.mutation<ApiResponse, User>({
+    banUser: builder.mutation<ApiResponse, IUserInfo>({
       query: (body) => ({
         url: '/ban',
         method: 'POST',
         body,
       }),
     }),
-    changeUserRole: builder.mutation<ApiResponse, User>({
+    updateInfoByUser: builder.mutation<ApiResponse, IUserInfo>({
+      query: (body) => ({
+        url: '/update',
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['UserInfo'],
+    }),
+    changeUserRole: builder.mutation<ApiResponse, IUserInfo>({
       query: (body) => ({
         url: '/role',
         method: 'PUT',
@@ -44,4 +53,5 @@ export const {
   useRemoveUserMutation,
   useBanUserMutation,
   useChangeUserRoleMutation,
+  useUpdateInfoByUserMutation
 } = userApi;

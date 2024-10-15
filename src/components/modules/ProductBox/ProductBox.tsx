@@ -13,8 +13,6 @@ export default function ProductBox(
     { _id, name, cover, price, discount, brand, stock, categoryId, shortname,
         color, isProductBoxForProductsList = false, isProductBoxForRelatedProduct = false }: IProduct) {
 
-
-
     return (
         <div className={` group hover:shadow-custom transition-all duration-200 ease-in  ${isProductBoxForProductsList || isProductBoxForRelatedProduct ? " border border-mainBorder rounded-lg" : "mb-16"}`}>
             <div className=" bg-white overflow-hidden rounded-lg px-6">

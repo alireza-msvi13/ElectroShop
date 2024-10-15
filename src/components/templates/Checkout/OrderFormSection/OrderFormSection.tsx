@@ -23,7 +23,7 @@ export default function OrderFormSection() {
 
     const orderForm = useFormik({
         initialValues: {
-            name: user?.username || "",
+            username: user?.username || "",
             email: user?.email || "",
             phone: user?.phone || "",
             province: user?.province || "",
@@ -48,18 +48,18 @@ export default function OrderFormSection() {
                             {/* Name Field */}
                             <div className='col-span-12 sm:col-span-6'>
                                 <div className="flex flex-col relative">
-                                    <input type="text" id="name"
+                                    <input type="text" id="username"
                                         className="border focus:border-main outline-none text-md h-16 w-full bg-mainBg rounded-lg p-4 text-mainBlack"
                                         placeholder="نام و نام خانوادگی" autoComplete="off"
-                                        value={orderForm.values.name}
+                                        value={orderForm.values.username}
                                         onChange={orderForm.handleChange}
                                         onBlur={orderForm.handleBlur} />
                                     <span className='absolute left-4 top-5 text-main'>
                                         <FaUser className='text-2xl' />
                                     </span>
-                                    {orderForm.errors.name && orderForm.touched.name && (
+                                    {orderForm.errors.username && orderForm.touched.username && (
                                         <label htmlFor="name" className='text-red-500 text-[13px] block mt-2 ml-1'>
-                                            {String(orderForm.errors.name)}
+                                            {String(orderForm.errors.username)}
                                         </label>
                                     )}
                                 </div>
