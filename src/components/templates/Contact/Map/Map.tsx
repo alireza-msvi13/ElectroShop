@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
 
-let DefaultIcon = L.icon({
+const DefaultIcon = L.icon({
     iconUrl: '/images/marker-icon.png',
     shadowUrl: '/images/marker-shadow.png'
 });

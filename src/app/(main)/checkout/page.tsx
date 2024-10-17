@@ -8,7 +8,7 @@ import Btn from '@/components/modules/Btn/Btn';
 import OrderFormSection from '@/components/templates/Checkout/OrderFormSection/OrderFormSection';
 import { useGetMeUserQuery } from '@/redux/api/authApi';
 
-export default function checkout() {
+export default function Checkout() {
 
 
   const { data: user } = useGetMeUserQuery()

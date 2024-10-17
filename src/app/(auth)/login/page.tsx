@@ -16,9 +16,9 @@ import { useRouter } from "next/navigation";
 import { ILoginUserBody } from '@/interfaces/auth';
 import { setCookie } from 'cookies-next';
 
-export default function login() {
+export default function Login() {
 
-    const [loginUser, { data, error, isLoading }] = useLoginUserMutation();
+    const [loginUser, { isLoading }] = useLoginUserMutation();
     const router = useRouter();
 
 

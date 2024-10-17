@@ -5,7 +5,7 @@ import { MdNavigateNext } from "react-icons/md";
 import { FaUser, FaPhone, FaKey } from "react-icons/fa";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { MdEmail } from "react-icons/md";
-import { useFormik, FormikErrors } from "formik";
+import { useFormik } from "formik";
 import { registerValidator } from '@/validators/auth';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { useRegisterUserMutation } from '@/redux/api/authApi';
@@ -18,7 +18,7 @@ import { setCookie } from 'cookies-next';
 
 
 const Register: React.FC = () => {
-    const [registerUser, { data, isLoading }] = useRegisterUserMutation();
+    const [registerUser, {  isLoading }] = useRegisterUserMutation();
     const router = useRouter();
 
     const onSubmitHandler = async (userInfo: IUserInfo) => {

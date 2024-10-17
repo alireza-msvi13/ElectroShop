@@ -29,7 +29,7 @@ export default function CategoryTable() {
 
     const deleteCategoryHandler = async (id: string) => {
         try {
-            const result = await deleteCategory(id).unwrap();
+            await deleteCategory(id).unwrap();
             toast.success("دسته بندی با موفقیت حذف شد");
             refetch()
             setIsShowDeleteModal(false);
@@ -44,7 +44,7 @@ export default function CategoryTable() {
 
     const editCategoryHandler = async ({ title, shortname }: { title: string, shortname: string }) => {
         try {
-            const result = await editCategory({ id: categoryId!, title, shortname }).unwrap();
+             await editCategory({ id: categoryId!, title, shortname }).unwrap();
             if (!isLoading) {
                 toast.success("دسته بندی با موفقیت ویرایش شد");
                 setIsShowEditModal(false);
@@ -76,7 +76,7 @@ export default function CategoryTable() {
                 shortname: mainCategoryInfo.shortname || ""
             });
         }
-    }, [isShowEditModal, mainCategoryInfo]);
+    }, [isShowEditModal, mainCategoryInfo,editForm]);
 
     return (
         <>

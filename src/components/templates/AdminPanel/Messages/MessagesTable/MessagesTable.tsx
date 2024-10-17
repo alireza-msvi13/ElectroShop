@@ -3,7 +3,6 @@ import Button from '@/components/modules/Button/Button'
 import DeleteModal from '@/components/modules/DeleteModal/DeleteModal'
 import Modal from '@/components/modules/Modal/Modal'
 import { useDeleteMessageMutation, useGetAllMessageQuery } from '@/redux/api/contactApi'
-import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -18,16 +17,15 @@ export default function MessagesTable() {
     const [selectedMessage, setSelectedMessage] = useState("");
 
     const [deleteMessage] = useDeleteMessageMutation();
-    const router = useRouter();
 
     const deleteMessageHandler = async (id: string) => {
         try {
-            const result = await deleteMessage(id).unwrap();
+            await deleteMessage(id).unwrap();
             toast.success("پیام با موفقیت حذف شد")
             refetch()
             setIsShowDeleteModal(false)
 
-        } catch (err:any) {
+        } catch (err: any) {
             console.error(err);
             if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
             else if (err.status === 401) toast.error("پیام یافت نشد")

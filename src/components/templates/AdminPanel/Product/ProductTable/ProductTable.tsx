@@ -27,7 +27,7 @@ export default function ProductTable() {
 
     const deleteProductHandler = async (id: string) => {
         try {
-            const result = await deleteProduct(id).unwrap();
+            await deleteProduct(id).unwrap();
             toast.success("محصول با موفقیت حذف شد");
             router.refresh();
             setIsShowDeleteModal(false);
@@ -43,7 +43,7 @@ export default function ProductTable() {
 
     const editProductHandler = async (formData: FormData) => {
         try {
-            const result = await editProduct(formData).unwrap();
+            await editProduct(formData).unwrap();
             if (!isLoading) {
                 toast.success("محصول با موفقیت ویرایش شد");
                 router.refresh();
@@ -102,7 +102,7 @@ export default function ProductTable() {
                 categoryId: mainProductInfo.categoryId?._id || '',
             });
         }
-    }, [isShowEditModal, mainProductInfo]);
+    }, [isShowEditModal, mainProductInfo,editForm]);
 
     return (
         <>
@@ -122,7 +122,7 @@ export default function ProductTable() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-200 child:whitespace-nowrap'>
-                            {products?.map((product: any, index: number) => (
+                            {products?.map((product: any) => (
                                 <tr key={product._id} className=' child:p-4 child:text-sm'>
                                     <td>
                                         <Image src={`http://localhost:4000/public/covers/${product.cover}`} width={45} height={45} alt='product' />

@@ -1,8 +1,7 @@
 "use client";
 import React from 'react'
 import TopSectionTitle from '@/components/modules/TopSectionTitle/TopSectionTitle'
-import ProductBox from '@/components/modules/ProductBox/ProductBox';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';

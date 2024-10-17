@@ -31,14 +31,14 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 setProduct(productData as IProduct);
             } catch (err) {
                 console.error(err);
-                router.push("/404")
+                router.push("/404");
             } finally {
                 setLoading(false);
             }
         };
-
+    
         fetchProduct();
-    }, [id, getProduct]);
+    }, [id, getProduct, router]);
 
     if (loading) {
         // return <div>در حال بارگذاری...</div>;

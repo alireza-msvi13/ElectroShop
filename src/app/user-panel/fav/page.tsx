@@ -6,7 +6,7 @@ import { IoIosSearch } from 'react-icons/io'
 import ProductBox from '@/components/modules/ProductBox/ProductBox';
 import { useGetMeUserQuery } from '@/redux/api/authApi'
 
-export default function fav() {
+export default function Fav() {
   const { data: user } = useGetMeUserQuery();
 
 

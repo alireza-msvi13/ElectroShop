@@ -19,10 +19,10 @@ export default function AddCategory() {
 
     const [addCategory, { isLoading }] = useAddCategoryMutation();
 
-    const addCategoryHandler = async (values:any) => {
+    const addCategoryHandler = async (values: any) => {
         try {
 
-            const result = await addCategory(values).unwrap();
+            await addCategory(values).unwrap();
             if (!isLoading) {
                 toast.success("محصول با موفقیت اضافه شد");
                 setIsShowAddModal(false);

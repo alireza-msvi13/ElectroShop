@@ -68,7 +68,9 @@ const Nav: React.FC<NavProps> = ({ isLogin, wishlistLength }) => {
                             <span className='absolute font-semibold px-[0.4rem] py-0 text-sm -top-[6px] -right-2 text-mainBlack rounded-full bg-white'>{wishlistLength}</span>
                         </Link>
                         <div className='relative cursor-pointer flex-center' onClick={() => {
-                            cart.length && dispatch(openShopCart());
+                            if (cart.length) {
+                                dispatch(openShopCart());
+                            }
                         }}>
                             <IoCartOutline className={`text-2xl sm:text-3xl transition-all duration-[.5s]`} />
                             <span className='absolute font-semibold px-[0.3rem] sm:px-[0.4rem] py-0 text-xs sm:text-sm -top-[6px] -right-2 text-mainBlack rounded-full bg-white'>{cart.length}</span>

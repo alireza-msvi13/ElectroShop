@@ -8,11 +8,11 @@ interface Category {
     description?: string;
 }
 
-interface ApiResponse {
-    success: boolean;
-    message: string;
-    data?: Category;
-}
+// interface ApiResponse {
+//     success: boolean;
+//     message: string;
+//     data?: Category;
+// }
 
 export const categoryApi = createApi({
     reducerPath: 'categoryApi',

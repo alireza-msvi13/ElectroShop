@@ -7,7 +7,7 @@ import RecentProduct from '@/components/templates/AdminPanel/RecentProduct/Recen
 import Link from 'next/link'
 import { useGetMeUserQuery } from '@/redux/api/authApi'
 
-export default function page() {
+export default function Page() {
   const { data: admin } = useGetMeUserQuery();
 
 

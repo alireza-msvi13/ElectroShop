@@ -19,11 +19,11 @@ export default function UsersTable() {
     const [userId, setUserId] = useState(null)
     const [mainUserInfo, setMainUserInfo] = useState({})
 
-    const [removeUser, { isLoading }] = useRemoveUserMutation();
+    const [removeUser] = useRemoveUserMutation();
 
     const removeUserHandler = async (id: any) => {
         try {
-            const result = await removeUser(id).unwrap();
+             await removeUser(id).unwrap();
             toast.success("کاربر با موفقیت حذف شد")
             refetch()
             setIsShowDeleteModal(false)

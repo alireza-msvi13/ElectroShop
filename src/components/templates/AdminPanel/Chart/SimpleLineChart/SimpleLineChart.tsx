@@ -2,7 +2,7 @@
 import React from "react";
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid,
-    Tooltip, ResponsiveContainer, PieChart, Pie, Sector,
+    Tooltip, ResponsiveContainer,
 } from 'recharts';
 const data = [
     {

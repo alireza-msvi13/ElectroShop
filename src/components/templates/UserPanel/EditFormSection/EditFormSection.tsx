@@ -1,7 +1,6 @@
 "use client"
 
 import { useFormik } from 'formik';
-import { useRouter } from 'next/navigation';
 import React from 'react'
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { toast } from 'react-toastify';
@@ -10,7 +9,6 @@ import { MdEmail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { MdOutlinePostAdd } from "react-icons/md";
-import { CgPassword } from 'react-icons/cg';
 import { useGetMeUserQuery } from '@/redux/api/authApi';
 import { IUserInfo } from '@/interfaces/auth';
 import { updateUserValidator } from '@/validators/user';
@@ -21,11 +19,10 @@ export default function EditFormSection() {
     const [updateUserInfo, updateUserInfoResponse] = useUpdateInfoByUserMutation();
     const { data: user ,refetch } = useGetMeUserQuery();
 
-    const router = useRouter()
 
     const updateUserInfoHandler = async (info: IUserInfo) => {
         try {
-            const result = await updateUserInfo(info).unwrap();
+            await updateUserInfo(info).unwrap();
             if (!updateUserInfoResponse.isLoading) {
                 toast.success("اطلاهات شما با موفقیت آپدیت شد")
                 refetch()

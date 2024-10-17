@@ -16,7 +16,7 @@ import { IoIosArrowRoundForward } from 'react-icons/io'
 import { MdEmail } from 'react-icons/md'
 import { toast } from 'react-toastify'
 
-export default function contact() {
+export default function Contact() {
     const [sendMessage, { data, isLoading }] = useSendMessageMutation();
     const router = useRouter();
 

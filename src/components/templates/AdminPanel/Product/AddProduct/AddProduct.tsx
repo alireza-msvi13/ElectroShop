@@ -21,7 +21,7 @@ export default function AddProduct() {
 
     const addProductHandler = async (formData: any) => {
         try {
-            const result = await addProduct(formData).unwrap();
+             await addProduct(formData).unwrap();
             if (!isLoading) {
                 toast.success("محصول با موفقیت اضافه شد")
                 router.refresh()
@@ -40,7 +40,7 @@ export default function AddProduct() {
         initialValues: { name: "", shortname: "", discount: 0, price: 0, stock: 0, brand: "", cover: null, categoryId: "", color: "مشکی" },
 
         onSubmit: (values) => {
-            let formData = new FormData();
+            const formData = new FormData();
             formData.append('name', values.name);
             formData.append('shortname', values.shortname);
             formData.append('discount', values.discount.toString());

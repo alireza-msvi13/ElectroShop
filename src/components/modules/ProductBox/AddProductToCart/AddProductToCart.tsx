@@ -6,9 +6,7 @@ import { addItem, removeItem, incrementItemCount, decrementItemCount, setCart } 
 import { IProduct } from "@/interfaces/product";
 import { RootState } from "@/redux/store";
 
-interface Props extends IProduct { }
-
-const AddProductToCart: React.FC<Props> = ({ cover, price, name, discount, brand, _id }) => {
+const AddProductToCart: React.FC<IProduct> = ({ cover, price, name, discount, brand, _id }) => {
     const dispatch = useDispatch();
     const { items } = useSelector((state: RootState) => state.cart);
 

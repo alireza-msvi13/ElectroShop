@@ -34,7 +34,7 @@ export default function OrderFormSection() {
         },
         enableReinitialize: true,
         validationSchema: createOrderValidator,
-        onSubmit: (values) => {
+        onSubmit: () => {
             // orderHandler(values)
         }
     });

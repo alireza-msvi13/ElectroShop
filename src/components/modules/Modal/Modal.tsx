@@ -6,7 +6,7 @@ interface ModalProps {
   onSubmit?: () => void;
 }
 
-export default function Modal({ children, onClose , onSubmit }: ModalProps) {
+export default function Modal({ children, onClose }: ModalProps) {
   return (
     <div className="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center h-full flex">
       <div onClick={onClose} className="absolute inset-0 bg-mainBlack opacity-[0.7]"></div>

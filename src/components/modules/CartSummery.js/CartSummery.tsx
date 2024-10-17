@@ -9,7 +9,7 @@ interface CartSummeryProps {
     children?: ReactNode;
 }
 
-const CartSummery: React.FC<CartSummeryProps> = ({ text, children }) => {
+const CartSummery: React.FC<CartSummeryProps> = ({ children }) => {
     const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
     const dispatch = useDispatch();
 

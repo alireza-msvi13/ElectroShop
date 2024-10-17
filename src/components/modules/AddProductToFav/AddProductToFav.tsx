@@ -13,7 +13,7 @@ interface AddProductToFavProps {
 }
 
 const AddProductToFav: React.FC<AddProductToFavProps> = ({ _id, isAddFavForProductDetails = false }) => {
-    const { data ,refetch } = useGetMeUserQuery();
+    const { data, refetch } = useGetMeUserQuery();
     const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
     const [checkInWishlist] = useIsInWishlistMutation();
     const [addToWishList, addToWishListRes] = useAddToWishlistMutation();
@@ -32,7 +32,7 @@ const AddProductToFav: React.FC<AddProductToFavProps> = ({ _id, isAddFavForProdu
 
     const addToWishListHandler = async (product: string) => {
         try {
-            const result = await addToWishList({ product }).unwrap();
+            await addToWishList({ product }).unwrap();
             toast.success("محصول به علاقه‌مندی‌ها اضافه شد");
             setIsInWishlist(true);
             router.refresh();
@@ -46,7 +46,7 @@ const AddProductToFav: React.FC<AddProductToFavProps> = ({ _id, isAddFavForProdu
 
     const removeFromWishlistHandler = async (product: string) => {
         try {
-            const result = await removeFromWishlist(product).unwrap();
+            await removeFromWishlist(product).unwrap();
             setIsInWishlist(false);
             toast.success("محصول از علاقه مندی ها حذف شد");
             router.refresh();

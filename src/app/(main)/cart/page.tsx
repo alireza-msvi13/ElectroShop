@@ -8,7 +8,7 @@ import { setCart } from '@/redux/slice/cartSlice';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function cart() {
+export default function Cart() {
   const cart = useSelector((state: any) => state.cart.items);
   const dispatch = useDispatch();
   useEffect(() => {
