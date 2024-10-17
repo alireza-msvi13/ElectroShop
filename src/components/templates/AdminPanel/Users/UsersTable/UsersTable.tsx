@@ -3,14 +3,13 @@ import Button from '@/components/modules/Button/Button';
 import DeleteModal from '@/components/modules/DeleteModal/DeleteModal';
 import { useGetAllUserQuery, useRemoveUserMutation } from '@/redux/api/userApi';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { GrUserAdmin } from "react-icons/gr";
 export default function UsersTable() {
 
-    const { data: users } = useGetAllUserQuery()
+    const { data: users ,refetch} = useGetAllUserQuery()
     const [isShowEditModal, setIsShowEditModal] = useState(false)
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
     const [isShowBanModal, setIsShowBanModal] = useState(false)
@@ -21,18 +20,19 @@ export default function UsersTable() {
     const [mainUserInfo, setMainUserInfo] = useState({})
 
     const [removeUser, { isLoading }] = useRemoveUserMutation();
-    const router = useRouter();
 
     const removeUserHandler = async (id: any) => {
         try {
             const result = await removeUser(id).unwrap();
-            toast.success(result.message)
-            router.refresh()
+            toast.success("کاربر با موفقیت حذف شد")
+            refetch()
             setIsShowDeleteModal(false)
 
-        } catch (err) {
-            console.error(err);
-            toast.error('خطای سمت سرور !')
+        } catch (err: any) {
+            // console.error(err);
+            if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
+            else if (err.status === 401) toast.error("کاربری یافت نشد")
+            else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
             setIsShowDeleteModal(false)
         }
     }

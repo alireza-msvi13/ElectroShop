@@ -1,5 +1,6 @@
 import { IProduct } from '@/interfaces/product';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getCookie } from 'cookies-next';
 
 
 interface Product {
@@ -19,7 +20,15 @@ interface ApiResponse {
 
 export const productApi = createApi({
   reducerPath: 'productApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/product' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/product',
+    prepareHeaders: (headers) => {
+      const token = getCookie('token');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+   }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({
     getProducts: builder.query<IProduct[], void>({
@@ -51,14 +60,19 @@ export const productApi = createApi({
       }),
       invalidatesTags: ['Products'],
     }),
-    editProduct: builder.mutation<ApiResponse, Product>({
-      query: (body) => ({
-        url: `/${body.id}`,
-        method: 'PUT',
-        body,
-      }),
+    editProduct: builder.mutation({
+      query: (formData: FormData) => {
+        const id = formData.get('id');
+        formData.delete('id');
+        return {
+          url: `/${id}`,
+          method: 'PUT',
+          body: formData, 
+        };
+      },
       invalidatesTags: ['Products'],
     }),
+
   }),
 });
 

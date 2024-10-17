@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 
 export default function MessagesTable() {
 
-    const { data: messages , refetch } = useGetAllMessageQuery()
+    const { data: messages, refetch } = useGetAllMessageQuery()
 
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
     const [isShowViewModal, setIsShowViewModal] = useState(false)
@@ -27,9 +27,11 @@ export default function MessagesTable() {
             refetch()
             setIsShowDeleteModal(false)
 
-        } catch (err) {
+        } catch (err:any) {
             console.error(err);
-            toast.error('خطای سمت سرور !')
+            if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
+            else if (err.status === 401) toast.error("پیام یافت نشد")
+            else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
             setIsShowDeleteModal(false)
         }
     }

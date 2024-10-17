@@ -6,53 +6,57 @@ import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { IoIosArrowRoundForward } from 'react-icons/io';
-import { createProductValidator } from '@/validators/product';
+import { productValidator } from '@/validators/product';
 import { useAddProductMutation } from '@/redux/api/productApi';
+import { useGetAllCategoryQuery } from '@/redux/api/categoryApi';
 
-export default function AddProduct({categories}) {
+export default function AddProduct() {
+
+    const { data: categories } = useGetAllCategoryQuery();
 
     const [isShowAddModal, setIsShowAddModal] = useState(false)
 
     const [addProduct, { isLoading }] = useAddProductMutation();
     const router = useRouter();
 
-    const addProductHandler = async (formData) => {
+    const addProductHandler = async (formData: any) => {
         try {
             const result = await addProduct(formData).unwrap();
             if (!isLoading) {
-                toast.success(result.message)
+                toast.success("محصول با موفقیت اضافه شد")
                 router.refresh()
                 setIsShowAddModal(false)
             }
-        } catch (err) {
-            console.error(err);
-            toast.error(err?.data?.message)
+        } catch (err: any) {
+            // console.error(err);
             setIsShowAddModal(false)
+            if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
+            else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
         }
     }
 
 
     const addForm = useFormik({
-        initialValues: { name: "", shortName: "", discount: "0", orginalPrice: "", stock: "", brand: "", cover: null, categoryId: "" },
+        initialValues: { name: "", shortname: "", discount: 0, price: 0, stock: 0, brand: "", cover: null, categoryId: "", color: "مشکی" },
 
         onSubmit: (values) => {
-
             let formData = new FormData();
             formData.append('name', values.name);
-            formData.append('shortName', values.shortName);
-            formData.append('discount', values.discount);
-            formData.append('orginalPrice', values.orginalPrice);
-            formData.append('stock', values.stock);
+            formData.append('shortname', values.shortname);
+            formData.append('discount', values.discount.toString());
+            formData.append('price', values.price.toString());
+            formData.append('stock', values.stock.toString());
             formData.append('brand', values.brand);
-            formData.append('cover', values.cover);
+            if (values.cover) formData.append('cover', values.cover);
+            formData.append('color', "مشکی");
             formData.append('categoryId', values.categoryId);
 
             addProductHandler(formData)
-            
+
             setIsShowAddModal(false)
         },
 
-        validationSchema: createProductValidator,
+        validationSchema: productValidator,
     });
 
 
@@ -65,7 +69,7 @@ export default function AddProduct({categories}) {
             {
                 isShowAddModal && <AddModal title="اضافه کردن محصول" onClose={() => setIsShowAddModal(false)}>
                     <form onSubmit={addForm.handleSubmit}>
-                    <div className="grid grid-cols-6 gap-6">
+                        <div className="grid grid-cols-6 gap-6">
                             <div className="col-span-6 sm:col-span-3">
                                 <label htmlFor="name" className="text-sm font-medium text-gray-900 block mb-2">نام محصول</label>
                                 <input type="text" name="name" id="name" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-main block w-full p-2.5" placeholder="هدفون ال جی"
@@ -78,14 +82,14 @@ export default function AddProduct({categories}) {
                                 }
                             </div>
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="shortName" className="text-sm font-medium text-gray-900 block mb-2">نام کوتاه - لینک</label>
-                                <input type="text" name="shortName" id="shortName" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-main block w-full p-2.5 " placeholder="headphone-LG"
-                                    value={addForm.values.shortName}
+                                <label htmlFor="shortname" className="text-sm font-medium text-gray-900 block mb-2">نام کوتاه - لینک</label>
+                                <input type="text" name="shortname" id="shortname" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-main block w-full p-2.5 " placeholder="headphone-LG"
+                                    value={addForm.values.shortname}
                                     onChange={addForm.handleChange}
                                     onBlur={addForm.handleBlur}
                                 />
                                 {
-                                    addForm.errors.shortName && addForm.touched.shortName && <label htmlFor="shortName" className='text-red-500 text-[13px] block mt-2 ml-1'>{addForm.errors.shortName}</label>
+                                    addForm.errors.shortname && addForm.touched.shortname && <label htmlFor="shortname" className='text-red-500 text-[13px] block mt-2 ml-1'>{addForm.errors.shortname}</label>
                                 }
                             </div>
                             <div className="col-span-6 sm:col-span-3">
@@ -100,16 +104,16 @@ export default function AddProduct({categories}) {
                                 }
                             </div>
                             <div className="col-span-6 sm:col-span-3">
-                                <label htmlFor="orginalPrice" className="text-sm font-medium text-gray-900 block mb-2">قیمت اصلی</label>
-                                <input type="number" id="orginalPrice" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-main block w-full p-2.5" placeholder="12300000"
-                                    name="orginalPrice"
-                                    value={addForm.values.orginalPrice}
+                                <label htmlFor="price" className="text-sm font-medium text-gray-900 block mb-2">قیمت اصلی</label>
+                                <input type="number" id="price" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-main block w-full p-2.5" placeholder="12300000"
+                                    name="price"
+                                    value={addForm.values.price}
                                     onChange={addForm.handleChange}
                                     onBlur={addForm.handleBlur}
                                 />
 
                                 {
-                                    addForm.errors.orginalPrice && addForm.touched.orginalPrice && <label htmlFor="orginalPrice" className='text-red-500 text-[13px] block mt-2 ml-1'>{addForm.errors.orginalPrice}</label>
+                                    addForm.errors.price && addForm.touched.price && <label htmlFor="price" className='text-red-500 text-[13px] block mt-2 ml-1'>{addForm.errors.price}</label>
                                 }
                             </div>
                             <div className="col-span-6 sm:col-span-3">
@@ -145,7 +149,7 @@ export default function AddProduct({categories}) {
                                     onBlur={addForm.handleBlur}
                                 >
                                     <option value="-1">انتخاب دسته بندی</option>
-                                    {categories?.map((category) => (
+                                    {categories?.map((category: any) => (
                                         <option key={category._id} value={category._id}>{category.title}</option>
                                     ))}
                                 </select>
@@ -160,14 +164,19 @@ export default function AddProduct({categories}) {
                                     id="cover"
                                     name="cover"
                                     onChange={(event) => {
-                                        addForm.setFieldValue("cover", event.currentTarget.files[0]);
+                                        const files = event.currentTarget.files;
+                                        if (files && files[0]) {
+                                            addForm.setFieldValue("cover", files[0]);
+                                        } else {
+                                            addForm.setFieldValue("cover", undefined);
+                                        }
                                     }}
                                 />
                                 {
                                     addForm.errors.cover && addForm.touched.cover && <label htmlFor="cover" className='text-red-500 text-[13px] block mt-2 ml-1'>{addForm.errors.cover}</label>
                                 }
                             </div>
-                          
+
                         </div>
                         <button type="submit" className=' w-full mt-8' disabled={isLoading}  >
                             <div className={` btn w-full before:w-full ${isLoading && "bg-mainBlack"} text-white`}>

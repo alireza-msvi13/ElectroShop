@@ -1,25 +1,10 @@
 import TopSectionPanel from '@/components/modules/AdminPanel/TopSectionPanel/TopSectionPanel'
 import React from 'react'
-import CategoryModel from "@/models/Category";
 import { IoIosSearch } from 'react-icons/io'
 import ProductTable from '@/components/templates/AdminPanel/Product/ProductTable/ProductTable'
-import connectToDB from '@/configs/db'
-import ProductModel from "@/models/Product";
 import AddProduct from '@/components/templates/AdminPanel/Product/AddProduct/AddProduct'
 export const revalidate = 0
 export default async function page() {
-
-  connectToDB();
-  const products = await ProductModel
-    .find({}, "-__v")
-    .populate("categoryId", "_id title")
-    .sort({ _id: -1 }).lean();
-
-  const categories = await CategoryModel.find({},
-    "-__v").sort({ _id: -1 }).lean();
-
-
-
   return (
     <>
       <TopSectionPanel title="لیست محصولات" spanTitle="محصولات" />
@@ -35,17 +20,11 @@ export default async function page() {
               </form>
             </div>
             <div className=' size-fit' >
-              <AddProduct categories={JSON.parse(JSON.stringify(categories))} />
+              <AddProduct/>
             </div>
           </div>
           <div className=' overflow-auto'>
-            {
-              products.length ?
-                <ProductTable products={JSON.parse(JSON.stringify(products))}
-                  categories={JSON.parse(JSON.stringify(categories))}
-                />
-                : <div className=' mt-8 bg-mainBg rounded-lg p-3 text-sm'>محصولی یافت نشد !</div>
-            }
+            <ProductTable />
           </div>
         </div>
 
