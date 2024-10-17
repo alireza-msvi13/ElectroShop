@@ -32,7 +32,7 @@ export default function SideBar() {
     const logoutUserHandler = () => {
         deleteCookie('token');
         deleteCookie('refreshToken');
-        toast.success("با موفقیت از حساب خود خارج شدید!");
+        toast.success("با موفقیت از حساب خود خارج شدید");
         router.push('/');
     };
 

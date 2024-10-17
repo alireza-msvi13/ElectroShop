@@ -6,6 +6,7 @@ import { useGetMeUserQuery } from '@/redux/api/authApi';
 import { toast } from 'react-toastify';
 import { useAddToWishlistMutation, useIsInWishlistMutation, useRemoveFromWishlistMutation } from '@/redux/api/wishlistApi';
 import { useRouter } from 'next/navigation';
+import { getCookie } from 'cookies-next';
 
 interface AddProductToFavProps {
     _id: string;
@@ -22,7 +23,8 @@ const AddProductToFav: React.FC<AddProductToFavProps> = ({ _id, isAddFavForProdu
 
     useEffect(() => {
         const checkIfInWishlist = async () => {
-            if (data) {
+            const token = getCookie("token")
+            if (token && data) {
                 const result = await checkInWishlist(_id).unwrap();
                 setIsInWishlist(result.message === "this product exist in this user wishlist" && true);
             }
@@ -58,7 +60,8 @@ const AddProductToFav: React.FC<AddProductToFavProps> = ({ _id, isAddFavForProdu
     };
 
     const addToWishlist = () => {
-        if (!data) {
+        const token = getCookie("token")
+        if (!token || !data) {
             toast.info("برای اضافه کردن ابتدا باید لاگین کنید");
         } else {
             addToWishListHandler(_id);
