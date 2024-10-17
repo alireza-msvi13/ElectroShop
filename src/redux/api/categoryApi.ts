@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getCookie } from 'cookies-next';
 
 
 interface Category {
@@ -15,11 +16,20 @@ interface ApiResponse {
 
 export const categoryApi = createApi({
     reducerPath: 'categoryApi',
-    baseQuery: fetchBaseQuery({ baseUrl: '/api/admin/category' }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'http://localhost:4000/category',
+        prepareHeaders: (headers) => {
+            const token = getCookie('token');
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
     endpoints: (builder) => ({
         deleteCategory: builder.mutation({
             query: (id) => ({
-                url: `/${id}`, 
+                url: `/${id}`,
                 method: 'DELETE',
             }),
         }),
@@ -34,7 +44,13 @@ export const categoryApi = createApi({
             query: (body) => ({
                 url: `/${body.id}`,
                 method: 'PUT',
-                body,
+                body: { title: body.title, shortname: body.shortname },
+            }),
+        }),
+        getAllCategory: builder.query<any, void>({
+            query: () => ({
+                url: `/`,
+                method: 'GET',
             }),
         }),
     }),
@@ -45,4 +61,5 @@ export const {
     useDeleteCategoryMutation,
     useEditCategoryMutation,
     useAddCategoryMutation,
+    useGetAllCategoryQuery
 } = categoryApi;

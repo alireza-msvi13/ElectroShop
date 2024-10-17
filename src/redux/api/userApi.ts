@@ -17,10 +17,9 @@ export const userApi = createApi({
   tagTypes: ['UserInfo'],
   endpoints: (builder) => ({
     removeUser: builder.mutation<ApiResponse, IUserInfo>({
-      query: (body) => ({
-        url: '/remove',
+      query: (id) => ({
+        url: `/remove/${id}`,
         method: 'DELETE',
-        body,
       }),
     }),
     banUser: builder.mutation<ApiResponse, IUserInfo>({
@@ -45,6 +44,13 @@ export const userApi = createApi({
         body,
       }),
     }),
+    getAllUser: builder.query<any, void>({
+      query: () => ({
+        url: '/',
+        method: 'GET',
+      }),
+      providesTags: ['UserInfo'],
+    }),
   }),
 });
 
@@ -53,5 +59,6 @@ export const {
   useRemoveUserMutation,
   useBanUserMutation,
   useChangeUserRoleMutation,
-  useUpdateInfoByUserMutation
+  useUpdateInfoByUserMutation,
+  useGetAllUserQuery
 } = userApi;

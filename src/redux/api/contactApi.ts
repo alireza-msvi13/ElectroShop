@@ -1,5 +1,6 @@
 import { IContact } from '@/interfaces/contact';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getCookie } from 'cookies-next';
 
 interface ApiResponse {
   success: boolean;
@@ -8,7 +9,16 @@ interface ApiResponse {
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/contact' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:4000/contact',
+    prepareHeaders: (headers) => {
+      const token = getCookie('token');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     sendMessage: builder.mutation<ApiResponse, IContact>({
       query: (body) => ({
@@ -23,10 +33,17 @@ export const contactApi = createApi({
         method: 'DELETE',
       }),
     }),
+    getAllMessage: builder.query<any, void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
 export const {
   useSendMessageMutation,
   useDeleteMessageMutation,
+  useGetAllMessageQuery
 } = contactApi;

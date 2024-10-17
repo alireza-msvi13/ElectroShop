@@ -76,15 +76,15 @@ export default function SideBar() {
                                 تیکت
                             </Link>
                         </li>
-                        {/* {
-                            user.role === "ADMIN" &&
+                        {
+                            user?.role === "ADMIN" &&
                             <li onClick={() => dispatch(closeSideBar())}>
                                 <Link href={'/admin-panel'} className='flex items-center text-md gap-2 py-2 pl-2 text-white rounded-lg'>
                                     <GrUserAdmin className=' text-2xl text-white' />
                                     پنل مدیریت
                                 </Link>
                             </li>
-                        } */}
+                        }
 
                         <li onClick={() => setIsShowDeleteModal(true)}>
 
