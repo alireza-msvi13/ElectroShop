@@ -14,13 +14,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { FaUser } from 'react-icons/fa';
 import { GrUserAdmin } from "react-icons/gr";
 import DeleteModal from '@/components/modules/DeleteModal/DeleteModal';
-import { useGetMeUserQuery } from '@/redux/api/authApi';
+import { authApi, useGetMeUserQuery } from '@/redux/api/authApi';
 import { deleteCookie } from 'cookies-next';
 export default function SideBar() {
 
     const isSideBarOpen = useSelector((store:any) => store.sideBarUserPanelSlice.isSideBarOpen)
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
-    const { data: user } = useGetMeUserQuery();
+    const { data: user , refetch } = useGetMeUserQuery();
 
     const dispatch = useDispatch();
     const router = useRouter()
@@ -30,7 +30,8 @@ export default function SideBar() {
         deleteCookie('token');
         deleteCookie('refreshToken');
         toast.success("با موفقیت از حساب خود خارج شدید!");
-        router.push('/');
+        router.replace("/");
+        router.refresh()
     };
 
     return (
