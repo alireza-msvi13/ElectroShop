@@ -39,7 +39,7 @@ export default function RecentProduct({ products }: RecentProductProps) {
                                     </span>
                                 </td>
                                 <td className="py-4 whitespace-nowrap text-xs text-main">
-                                    <Link href={'admin-panel/products-list'}>دیدن</Link>
+                                    <Link href={'admin-panel/products'}>دیدن</Link>
                                 </td>
                             </tr>
                         ))}

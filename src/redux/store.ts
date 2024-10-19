@@ -11,6 +11,7 @@ import { sideBarUserPanelSlice } from "./slice/sideBarUserPanelSlice";
 import { sideBarMobileSlice } from "./slice/sideBarMobileSlice";
 import { contactApi } from "./api/contactApi";
 import { wishListApi } from "./api/wishlistApi";
+import { infoApi } from "./api/infoApi";
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -24,6 +25,7 @@ export const store = configureStore({
         [productApi.reducerPath]: productApi.reducer,
         [contactApi.reducerPath]: contactApi.reducer,
         [wishListApi.reducerPath]: wishListApi.reducer,
+        [infoApi.reducerPath]: infoApi.reducer,
         [cartSlice.name]: cartSlice.reducer,
         [sideBarAdminPanelSlice.name]: sideBarAdminPanelSlice.reducer,
         [sideBarUserPanelSlice.name]: sideBarUserPanelSlice.reducer,
@@ -38,6 +40,7 @@ export const store = configureStore({
             productApi.middleware,
             contactApi.middleware,
             wishListApi.middleware,
+            infoApi.middleware,
         ),
 });
 

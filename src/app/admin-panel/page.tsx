@@ -5,21 +5,29 @@ import SimpleLineChart from '@/components/templates/AdminPanel/Chart/SimpleLineC
 import RecentUsers from '@/components/templates/AdminPanel/RecentUsers/RecentUsers'
 import RecentProduct from '@/components/templates/AdminPanel/RecentProduct/RecentProduct'
 import Link from 'next/link'
-import { useGetMeUserQuery } from '@/redux/api/authApi'
+import { useGetInfoQuery } from '@/redux/api/infoApi';
 
 export default function Page() {
-  const { data: admin } = useGetMeUserQuery();
+  const { data, isLoading } = useGetInfoQuery()
 
 
+  if (isLoading) {
+    return <span className='font-morabba'>در حال لود شدن و ...</span>
+  }
   return (
     <>
-      <h4 className=' font-morabba text-main text-2xl'>{admin?.username} خوش اومدی !</h4>
+      <h4 className=' font-morabba text-main text-2xl'>{data?.adminName} خوش اومدی !</h4>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <InfoBox title="بازدید سایت" count={5230} />
-        {/* <InfoBox title="ثبت نامی‌ها" count={usersCount.length > 10 ? usersCount.length : "0" + usersCount.length} /> */}
-        <InfoBox title="ثبت نامی‌ها" count={250} />
-        <InfoBox title="سفارشات" count={230} />
-        <InfoBox title="مقالات" count={Number("0" + 3)} />
+        <InfoBox title="ثبت نامی‌ها" count={
+          data?.infos[0]?.count > 10 ? data?.infos[0]?.count : "0" + data?.infos[0]?.count} />
+        <InfoBox title="محصولات" count={
+          data?.infos[1]?.count > 10 ? data?.infos[1]?.count : "0" + data?.infos[1]?.count
+        } />
+        <InfoBox title="سفارشات" count={
+          data?.infos[2]?.count > 10 ? data?.infos[2]?.count : "0" + data?.infos[2]?.count
+        } />
+
       </div>
       <div className=' grid grid-cols-12'>
         <div className=' col-span-12 xl:col-span-12'>
@@ -28,8 +36,8 @@ export default function Page() {
       </div>
 
       <div className="grid grid-cols-12 gap-6">
-        <RecentUsers users={JSON.parse(JSON.stringify([]))} />
-        <RecentProduct products={JSON.parse(JSON.stringify([]))} />
+        <RecentUsers users={JSON.parse(JSON.stringify(data?.lastUsers))} />
+        <RecentProduct products={JSON.parse(JSON.stringify(data?.lastProducts))} />
       </div>
 
       <footer className="flex justify-between rounded-md mt-4 px-8 py-4  border text-xs font-bold ">
