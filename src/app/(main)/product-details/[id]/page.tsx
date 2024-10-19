@@ -15,6 +15,7 @@ import AddProductToFav from '@/components/modules/AddProductToFav/AddProductToFa
 import { useGetOneProductMutation } from '@/redux/api/productApi';
 import { IProduct } from '@/interfaces/product';
 import { useRouter } from 'next/navigation';
+import NotFoundItem from '@/components/modules/NotFoundItem/NotFoundItem';
 
 export default function ProductPage({ params }: { params: { id: string } }) {
     const id = params.id;
@@ -31,21 +32,21 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 setProduct(productData as IProduct);
             } catch (err) {
                 console.error(err);
-                router.push("/404");
+                // router.push("/404");
             } finally {
                 setLoading(false);
             }
         };
-    
+
         fetchProduct();
     }, [id, getProduct, router]);
 
     if (loading) {
-        // return <div>در حال بارگذاری...</div>;
+        return <div className=' flex-center h-screen text-2xl text-main'>در حال بارگذاری...</div>;
     }
 
     if (!product) {
-        return null;
+        return <NotFoundItem text="محصولی یافت نشد !" isBtnNeed={true} />;
     }
 
     return (

@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { GrUserAdmin } from "react-icons/gr";
 export default function UsersTable() {
 
-    const { data: users ,refetch} = useGetAllUserQuery()
+    const { data: users, refetch } = useGetAllUserQuery()
     const [isShowEditModal, setIsShowEditModal] = useState(false)
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
     const [isShowBanModal, setIsShowBanModal] = useState(false)
@@ -23,7 +23,7 @@ export default function UsersTable() {
 
     const removeUserHandler = async (id: any) => {
         try {
-             await removeUser(id).unwrap();
+            await removeUser(id).unwrap();
             toast.success("کاربر با موفقیت حذف شد")
             refetch()
             setIsShowDeleteModal(false)

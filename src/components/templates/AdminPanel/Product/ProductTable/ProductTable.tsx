@@ -102,7 +102,7 @@ export default function ProductTable() {
                 categoryId: mainProductInfo.categoryId?._id || '',
             });
         }
-    }, [isShowEditModal, mainProductInfo,editForm]);
+    }, [isShowEditModal, mainProductInfo]);
 
     return (
         <>

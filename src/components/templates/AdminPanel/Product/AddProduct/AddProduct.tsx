@@ -21,10 +21,11 @@ export default function AddProduct() {
 
     const addProductHandler = async (formData: any) => {
         try {
-             await addProduct(formData).unwrap();
+            await addProduct(formData).unwrap();
             if (!isLoading) {
                 toast.success("محصول با موفقیت اضافه شد")
                 router.refresh()
+                addForm.setValues({  name: "", shortname: "", discount: 0, price: 0, stock: 0, brand: "", cover: null, categoryId: "", color: "مشکی" });
                 setIsShowAddModal(false)
             }
         } catch (err: any) {

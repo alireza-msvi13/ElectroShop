@@ -9,7 +9,6 @@ import { useFormik } from 'formik';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import Modal from '@/components/modules/Modal/Modal';
 import { categoryValidator } from '@/validators/category';
-
 interface ICategory {
     _id: string;
     title: string;
@@ -31,8 +30,10 @@ export default function CategoryTable() {
         try {
             await deleteCategory(id).unwrap();
             toast.success("دسته بندی با موفقیت حذف شد");
-            refetch()
             setIsShowDeleteModal(false);
+            refetch()
+            console.log(categories);
+            
         } catch (err: any) {
             console.error(err);
             if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
@@ -44,13 +45,11 @@ export default function CategoryTable() {
 
     const editCategoryHandler = async ({ title, shortname }: { title: string, shortname: string }) => {
         try {
-             await editCategory({ id: categoryId!, title, shortname }).unwrap();
-            if (!isLoading) {
-                toast.success("دسته بندی با موفقیت ویرایش شد");
-                setIsShowEditModal(false);
-                editForm.setValues({ title: "", shortname: "" });
-                refetch()
-            }
+            await editCategory({ id: categoryId!, title, shortname }).unwrap();
+            toast.success("دسته بندی با موفقیت ویرایش شد");
+            setIsShowEditModal(false);
+            editForm.setValues({ title: "", shortname: "" });
+            refetch()
         } catch (err: any) {
             console.error(err);
             if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
@@ -76,7 +75,7 @@ export default function CategoryTable() {
                 shortname: mainCategoryInfo.shortname || ""
             });
         }
-    }, [isShowEditModal, mainCategoryInfo,editForm]);
+    }, [isShowEditModal, mainCategoryInfo]);
 
     return (
         <>

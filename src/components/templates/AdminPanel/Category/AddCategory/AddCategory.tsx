@@ -24,7 +24,7 @@ export default function AddCategory() {
 
             await addCategory(values).unwrap();
             if (!isLoading) {
-                toast.success("محصول با موفقیت اضافه شد");
+                toast.success("دسته بندی با موفقیت اضافه شد");
                 setIsShowAddModal(false);
                 addForm.setValues({ title: "", shortname: "" });
                 refetch()
