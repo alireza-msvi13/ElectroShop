@@ -14,12 +14,14 @@ export const infoApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Info'],
   endpoints: (builder) => ({
     getInfo: builder.query<any, void>({
       query: () => ({
         url: `/`,
         method: 'GET',
       }),
+      providesTags: ['Info'],
     }),
   }),
 });

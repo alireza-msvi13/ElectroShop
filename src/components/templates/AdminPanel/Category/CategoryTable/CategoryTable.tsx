@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import Modal from '@/components/modules/Modal/Modal';
 import { categoryValidator } from '@/validators/category';
+import Loading from '@/components/modules/Loading/Loading';
 interface ICategory {
     _id: string;
     title: string;
@@ -16,7 +17,7 @@ interface ICategory {
 }
 
 export default function CategoryTable() {
-    const { data: categories, refetch } = useGetAllCategoryQuery();
+    const { data: categories, refetch , isLoading: categoriesLoading } = useGetAllCategoryQuery();
     const [isShowEditModal, setIsShowEditModal] = useState<boolean>(false);
     const [isShowDeleteModal, setIsShowDeleteModal] = useState<boolean>(false);
 
@@ -76,6 +77,12 @@ export default function CategoryTable() {
             });
         }
     }, [isShowEditModal, mainCategoryInfo]);
+
+    
+    if (categoriesLoading) {
+        return <Loading/>
+    }
+
 
     return (
         <>

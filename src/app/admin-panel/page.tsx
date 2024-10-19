@@ -11,9 +11,11 @@ export default function Page() {
   const { data, isLoading } = useGetInfoQuery()
 
 
+  
   if (isLoading) {
     return <span className='font-morabba'>در حال لود شدن و ...</span>
   }
+  console.log(data);
   return (
     <>
       <h4 className=' font-morabba text-main text-2xl'>{data?.adminName} خوش اومدی !</h4>

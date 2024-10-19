@@ -20,7 +20,8 @@ interface ApiResponse {
 
 export const productApi = createApi({
   reducerPath: 'productApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000/product',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:4000/product',
     prepareHeaders: (headers) => {
       const token = getCookie('token');
       if (token) {
@@ -28,8 +29,8 @@ export const productApi = createApi({
       }
       return headers;
     },
-   }),
-  tagTypes: ['Products'],
+  }),
+  tagTypes: ['Products', 'Info'],
   endpoints: (builder) => ({
     getProducts: builder.query<IProduct[], void>({
       query: () => ({
@@ -50,7 +51,7 @@ export const productApi = createApi({
         url: `/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Products'],
+      invalidatesTags: ['Products', 'Info'],
     }),
     addProduct: builder.mutation<ApiResponse, Product>({
       query: (body) => ({
@@ -58,7 +59,7 @@ export const productApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Products'],
+      invalidatesTags: ['Products', 'Info'],
     }),
     editProduct: builder.mutation({
       query: (formData: FormData) => {
@@ -67,7 +68,7 @@ export const productApi = createApi({
         return {
           url: `/${id}`,
           method: 'PUT',
-          body: formData, 
+          body: formData,
         };
       },
       invalidatesTags: ['Products'],

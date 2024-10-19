@@ -1,6 +1,7 @@
 "use client"
 import Button from '@/components/modules/Button/Button'
 import DeleteModal from '@/components/modules/DeleteModal/DeleteModal'
+import Loading from '@/components/modules/Loading/Loading'
 import Modal from '@/components/modules/Modal/Modal'
 import { useDeleteMessageMutation, useGetAllMessageQuery } from '@/redux/api/contactApi'
 import React, { useState } from 'react'
@@ -8,7 +9,7 @@ import { toast } from 'react-toastify'
 
 export default function MessagesTable() {
 
-    const { data: messages, refetch } = useGetAllMessageQuery()
+    const { data: messages, refetch , isLoading } = useGetAllMessageQuery()
 
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
     const [isShowViewModal, setIsShowViewModal] = useState(false)
@@ -32,6 +33,10 @@ export default function MessagesTable() {
             else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
             setIsShowDeleteModal(false)
         }
+    }
+
+    if (isLoading) {
+        return <Loading/>
     }
 
     return (

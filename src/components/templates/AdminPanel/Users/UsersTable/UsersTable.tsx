@@ -7,9 +7,10 @@ import React, { useState } from 'react'
 import { FaUser } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { GrUserAdmin } from "react-icons/gr";
+import Loading from '@/components/modules/Loading/Loading';
 export default function UsersTable() {
 
-    const { data: users, refetch } = useGetAllUserQuery()
+    const { data: users, refetch, isLoading } = useGetAllUserQuery()
     const [isShowEditModal, setIsShowEditModal] = useState(false)
     const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
     const [isShowBanModal, setIsShowBanModal] = useState(false)
@@ -35,6 +36,10 @@ export default function UsersTable() {
             else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
             setIsShowDeleteModal(false)
         }
+    }
+
+    if (isLoading) {
+        return <Loading/>
     }
 
     return (

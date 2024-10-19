@@ -12,9 +12,10 @@ import { IoIosArrowRoundForward } from 'react-icons/io';
 import Image from 'next/image';
 import { useGetAllCategoryQuery } from '@/redux/api/categoryApi';
 import { IProduct } from '@/interfaces/product';
+import Loading from '@/components/modules/Loading/Loading';
 
 export default function ProductTable() {
-    const { data: products } = useGetProductsQuery();
+    const { data: products, isLoading } = useGetProductsQuery();
     const { data: categories } = useGetAllCategoryQuery();
 
     const [isShowEditModal, setIsShowEditModal] = useState(false);
@@ -39,16 +40,14 @@ export default function ProductTable() {
         }
     };
 
-    const [editProduct, { isLoading }] = useEditProductMutation();
+    const [editProduct] = useEditProductMutation();
 
     const editProductHandler = async (formData: FormData) => {
         try {
             await editProduct(formData).unwrap();
-            if (!isLoading) {
-                toast.success("محصول با موفقیت ویرایش شد");
-                router.refresh();
-                setIsShowEditModal(false);
-            }
+            toast.success("محصول با موفقیت ویرایش شد");
+            router.refresh();
+            setIsShowEditModal(false);
         } catch (err: any) {
             setIsShowEditModal(false);
             if (err.status === 400) toast.error("اطلاعات به درستی وارد نشده است")
@@ -103,6 +102,11 @@ export default function ProductTable() {
             });
         }
     }, [isShowEditModal, mainProductInfo]);
+
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <>
