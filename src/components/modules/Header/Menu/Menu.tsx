@@ -13,7 +13,7 @@ const Menu: React.FC = () => {
                     <div className={`invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute left-[-163px] top-full pt-7 transition-all ease duration-300  z-20`}>
                         <div className='flex flex-col text-justify  child:rounded-md capitalize child:transition-all text-mainBlack  shadow-custom child-hover:text-white  child-hover:bg-main bg-main-black child:w-[13rem] py-4 px-2 child:py-2 child:px-4 rounded-lg bg-white'>
                             <Link href={'/products-list'}>لیست محصولات</Link>
-                            <Link href={'/product-details/66d5cc2549d61690c9754aaf'}>جزییات محصولات</Link>
+                            <Link href={'/product-details/6712345235aa091e5c547ed6'}>جزییات محصولات</Link>
                         </div>
 
                     </div>

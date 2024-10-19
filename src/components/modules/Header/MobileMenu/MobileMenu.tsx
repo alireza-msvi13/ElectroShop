@@ -36,7 +36,7 @@ const MobileMenu: React.FC = () => {
                         </li>
                         <MobileMenuItem title="مصولات">
                             <MobileSubMenuItem title="لیست محصولات" href="/products-list" />
-                            <MobileSubMenuItem title="جزییات محصولات" href="/product-details/66d5cc2549d61690c9754aaf" />
+                            <MobileSubMenuItem title="جزییات محصولات" href="/product-details/6712345235aa091e5c547ed6" />
                         </MobileMenuItem>
                         <MobileMenuItem title="مقاله">
                             <MobileSubMenuItem title="لیست مقالات" href="/blogs-list" />
