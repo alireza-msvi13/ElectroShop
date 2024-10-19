@@ -42,7 +42,7 @@ export default function ProductDetailsSlider({ cover }: ProductDetailsSliderProp
             alt="product-img"
             sizes="100vw"
             className="w-full h-auto rounded-lg border-mainBorder border"
-            src={`http://localhost:4000/public/covers/${cover}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}/public/covers/${cover}`}
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -114,7 +114,7 @@ export default function ProductDetailsSlider({ cover }: ProductDetailsSliderProp
             alt="product-img"
             sizes="100vw"
             className="w-full h-auto rounded-lg mt-2 border-mainBorder border"
-            src={`http://localhost:4000/public/covers/${cover}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}/public/covers/${cover}`}
           />
         </SwiperSlide>
         <SwiperSlide>

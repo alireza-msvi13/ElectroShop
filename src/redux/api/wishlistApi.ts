@@ -15,7 +15,7 @@ interface ApiResponse {
 export const wishListApi = createApi({
   reducerPath: 'wishListApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/wishlist",
+    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/wishlist`,
     prepareHeaders: (headers) => {
       const token = getCookie('token');
       if (token) {

@@ -10,7 +10,7 @@ interface ApiResponse {
 export const contactApi = createApi({
   reducerPath: 'contactApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/contact',
+    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/contact`,
     prepareHeaders: (headers) => {
       const token = getCookie('token');
       if (token) {

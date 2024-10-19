@@ -34,7 +34,7 @@ export default function ProductBoxForCart({ _id, name, cover, price, count, bran
             <div className=' grid grid-cols-12 gap-4 sm:gap-6 items-center'>
                 <div className=' col-span-6 md:col-span-2'>
                     <Link href={`/product-details/${_id}`}>
-                        <Image src={`http://localhost:4000/public/covers/${cover}`} alt="productImg" className=' rounded-lg' width={122} height={122} />
+                        <Image src={`${process.env.NEXT_PUBLIC_BASE_URL}/public/covers/${cover}`} alt="productImg" className=' rounded-lg' width={122} height={122} />
                     </Link>
                 </div>
                 <div className=' col-span-6 md:col-span-3'>

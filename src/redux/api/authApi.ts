@@ -7,7 +7,7 @@ import { getCookie } from 'cookies-next';
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/auth',
+    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
     prepareHeaders: (headers) => {
       const token = getCookie('token');
       if (token) {

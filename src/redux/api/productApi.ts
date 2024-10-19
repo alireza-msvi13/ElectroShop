@@ -21,7 +21,7 @@ interface ApiResponse {
 export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/product',
+    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/product`,
     prepareHeaders: (headers) => {
       const token = getCookie('token');
       if (token) {

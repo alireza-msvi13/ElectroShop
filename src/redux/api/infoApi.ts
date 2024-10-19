@@ -5,7 +5,7 @@ import { getCookie } from 'cookies-next';
 export const infoApi = createApi({
   reducerPath: 'infoApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:4000/info',
+    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/info`,
     prepareHeaders: (headers) => {
       const token = getCookie('token');
       if (token) {

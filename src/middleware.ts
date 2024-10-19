@@ -12,7 +12,7 @@ export async function middleware(req: NextRequest) {
     } else {
         // بررسی نقش کاربر برای مسیرهای ادمین
         if (req.nextUrl.pathname.startsWith('/admin-panel')) {
-            const user: any = await fetch(new URL('http://localhost:4000/auth/me', req.url), {
+            const user: any = await fetch(new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/me`, req.url), {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

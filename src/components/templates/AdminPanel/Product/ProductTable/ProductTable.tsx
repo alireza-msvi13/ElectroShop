@@ -129,7 +129,7 @@ export default function ProductTable() {
                             {products?.map((product: any) => (
                                 <tr key={product._id} className=' child:p-4 child:text-sm'>
                                     <td>
-                                        <Image src={`http://localhost:4000/public/covers/${product.cover}`} width={45} height={45} alt='product' />
+                                        <Image src={`${process.env.NEXT_PUBLIC_BASE_URL}/public/covers/${product.cover}`} width={45} height={45} alt='product' />
                                     </td>
                                     <td>{product.name}</td>
                                     <td>{product.brand}</td>

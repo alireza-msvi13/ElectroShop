@@ -1,3 +1,4 @@
+import { ICategory } from '@/interfaces/category';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookie } from 'cookies-next';
 
@@ -8,16 +9,16 @@ interface Category {
     description?: string;
 }
 
-// interface ApiResponse {
-//     success: boolean;
-//     message: string;
-//     data?: Category;
-// }
+interface ApiResponse {
+    success: boolean;
+    message: string;
+    data?: Category;
+}
 
 export const categoryApi = createApi({
     reducerPath: 'categoryApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:4000/category',
+        baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/category`,
         prepareHeaders: (headers) => {
             const token = getCookie('token');
             if (token) {
@@ -27,20 +28,20 @@ export const categoryApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        deleteCategory: builder.mutation({
+        deleteCategory: builder.mutation<ApiResponse, string>({
             query: (id) => ({
                 url: `/${id}`,
                 method: 'DELETE',
             }),
         }),
-        addCategory: builder.mutation({
+        addCategory: builder.mutation<ApiResponse, ICategory>({
             query: (body) => ({
                 url: '/',
                 method: 'POST',
                 body,
             }),
         }),
-        editCategory: builder.mutation({
+        editCategory: builder.mutation<ApiResponse, any>({
             query: (body) => ({
                 url: `/${body.id}`,
                 method: 'PUT',
