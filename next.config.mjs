@@ -3,9 +3,9 @@ const nextConfig = {
     images: {
       remotePatterns: [
         {
-          protocol: 'http',
-          hostname: 'localhost',
-          port: '4000',
+          protocol: 'https',
+          hostname: 'store-api-deploy.vercel.app',
+          port: '',
           pathname: '/public/covers/**',
         },
       ],
