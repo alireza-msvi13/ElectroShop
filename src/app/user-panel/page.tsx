@@ -15,7 +15,7 @@ export default function WishlistPage() {
                 <InfoBox title="سفارشات" count={0} />
                 <InfoBox
                     title="علاقه مندی ها"
-                    count={user?.wishlist?.length ? (user?.wishlist.length > 10 ? user?.wishlist.length : `0${user?.wishlist.length}`) : "00"}
+                    count={user?.wishlist?.length ? (user?.wishlist.length > 10 ? user?.wishlist.length : `0${user?.wishlist.length}`) : "0"}
                 />
                 <InfoBox title="تیکت ها" count={0} />
             </div>

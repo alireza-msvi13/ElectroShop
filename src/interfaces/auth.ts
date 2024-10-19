@@ -8,6 +8,7 @@ interface IUserInfo {
   city?: string;
   address?: string;
   postalCode?: string;
+  role?:string
 }
 
 interface ILoginUserBody {

@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { IoIosSearch } from "react-icons/io";
@@ -12,13 +13,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '@/redux/slice/cartSlice';
 import { closeShopCart, openShopCart } from '@/redux/slice/shopCartSlice';
 import { openSideBar } from '@/redux/slice/sideBarMobileSlice';
+import { getCookie } from 'cookies-next';
+import { useGetMeUserQuery } from '@/redux/api/authApi';
 
-interface NavProps {
-    isLogin: boolean;
-    wishlistLength: number;
-}
+const Nav: React.FC = () => {
 
-const Nav: React.FC<NavProps> = ({ isLogin, wishlistLength }) => {
+    const { data: user, isLoading } = useGetMeUserQuery()
+    const token = getCookie("token")
+
+
     const [isFix, setIsFix] = useState<boolean>(false);
     const [isSearchBoxOpen, setIsSearchBoxOpen] = useState<boolean>(false);
     const dispatch = useDispatch();
@@ -65,7 +68,7 @@ const Nav: React.FC<NavProps> = ({ isLogin, wishlistLength }) => {
                         </div>
                         <Link href={'/user-panel/fav'} className='relative cursor-pointer hidden lg:flex-center'>
                             <IoMdHeartEmpty className={`text-2xl sm:text-3xl transition-all duration-[.5s]`} />
-                            <span className='absolute font-semibold px-[0.4rem] py-0 text-sm -top-[6px] -right-2 text-mainBlack rounded-full bg-white'>{wishlistLength}</span>
+                            <span className='absolute font-semibold px-[0.4rem] py-0 text-sm -top-[6px] -right-2 text-mainBlack rounded-full bg-white'>{user?.wishlist.length}</span>
                         </Link>
                         <div className='relative cursor-pointer flex-center' onClick={() => {
                             if (cart.length) {
@@ -75,16 +78,22 @@ const Nav: React.FC<NavProps> = ({ isLogin, wishlistLength }) => {
                             <IoCartOutline className={`text-2xl sm:text-3xl transition-all duration-[.5s]`} />
                             <span className='absolute font-semibold px-[0.3rem] sm:px-[0.4rem] py-0 text-xs sm:text-sm -top-[6px] -right-2 text-mainBlack rounded-full bg-white'>{cart.length}</span>
                         </div>
+                        {
+                            !isLoading ?
+                                token && user ? (
+                                    <Link href={'/user-panel'} className='hidden lg:flex-center'>
+                                        <AiOutlineUser className={`text-2xl sm:text-3xl transition-all duration-[.5s]`} />
+                                    </Link>
+                                ) : (
+                                    <Link href={"/login"} className="btn bg-white text-white group hidden lg:flex">
+                                        <span className='font-semibold text-sm text-mainBlack group-hover:text-white'>ورود / ثبت نام</span>
+                                    </Link>
+                                )
+                                : ""
 
-                        {isLogin ? (
-                            <Link href={'/user-panel'} className='hidden lg:flex-center'>
-                                <AiOutlineUser className={`text-2xl sm:text-3xl transition-all duration-[.5s]`} />
-                            </Link>
-                        ) : (
-                            <Link href={"/login"} className="btn bg-white text-white group hidden lg:flex">
-                                <span className='font-semibold text-sm text-mainBlack group-hover:text-white'>ورود / ثبت نام</span>
-                            </Link>
-                        )}
+                        }
+
+
 
                         <div className='block lg:hidden cursor-pointer' onClick={() => dispatch(openSideBar())}>
                             <AiOutlineMenu className={`text-xl sm:text-3xl`} />

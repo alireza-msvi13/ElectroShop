@@ -18,7 +18,7 @@ import { setCookie } from 'cookies-next';
 
 
 const Register: React.FC = () => {
-    const [registerUser, {  isLoading }] = useRegisterUserMutation();
+    const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
     const router = useRouter();
 
     const onSubmitHandler = async (userInfo: IUserInfo) => {
@@ -36,6 +36,7 @@ const Register: React.FC = () => {
             else if (err.status === 403) toast.error("شما امکان ثبت نام در سایت رو ندارید")
             else if (err.status === 409) toast.error("اکانتی با این شماره همراه یا ایمیل از قبل وجود دارد");
             else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
+            router.refresh();
         }
     };
 
@@ -161,10 +162,10 @@ const Register: React.FC = () => {
                             </div>
 
                             {/* Submit Button */}
-                            <button type="submit" className="w-full" disabled={isLoading}>
-                                <div className={`btn w-full before:w-full ${isLoading && "bg-mainBlack"} text-white`}>
-                                    <span className="text-sm">{isLoading ? "لطفا منتظر بمانید ..." : "ثبت نام"}</span>
-                                    {!isLoading && <IoIosArrowRoundForward className="text-2xl rotate-180" />}
+                            <button type="submit" className="w-full" disabled={isLoading || isSuccess}>
+                                <div className={`btn w-full before:w-full ${isLoading || isSuccess && "bg-mainBlack"} text-white`}>
+                                    <span className="text-sm">{isLoading || isSuccess ? "لطفا منتظر بمانید ..." : "ثبت نام"}</span>
+                                    {!isLoading || isSuccess && <IoIosArrowRoundForward className="text-2xl rotate-180" />}
                                 </div>
                             </button>
 

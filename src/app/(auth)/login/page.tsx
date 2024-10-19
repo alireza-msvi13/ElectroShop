@@ -18,7 +18,7 @@ import { setCookie } from 'cookies-next';
 
 export default function Login() {
 
-    const [loginUser, { isLoading }] = useLoginUserMutation();
+    const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
     const router = useRouter();
 
 
@@ -38,6 +38,7 @@ export default function Login() {
             else if (err.status === 401) toast.error("کاربری با این ایمیل وجود ندارد")
             else if (err.status === 403) toast.error("رمز عبور اشتباه است");
             else if (err.status === 500) toast.error("مشکلی از سمت ما پیش اومده لطفا چند ساعت دیگه دوباره امتحان کنید")
+            router.refresh()
         }
     };
 
@@ -133,13 +134,13 @@ export default function Login() {
 
                                 {/* <!-- btn --> */}
 
-                                <button type="submit" className=' w-full' disabled={isLoading}  >
-                                    <div className={` btn w-full before:w-full ${isLoading && "bg-mainBlack"} text-white`}>
+                                <button type="submit" className=' w-full' disabled={isLoading || isSuccess}  >
+                                    <div className={` btn w-full before:w-full ${isLoading || isSuccess && "bg-mainBlack"} text-white`}>
                                         <span className=' text-sm '>
-                                            {isLoading ? "لطفا منتظر بمانید ..." : "ورود"}
+                                            {isLoading || isSuccess ? "لطفا منتظر بمانید ..." : "ورود"}
                                         </span>
                                         {
-                                            !isLoading &&
+                                            !isLoading || isSuccess &&
                                             <IoIosArrowRoundForward className=' text-2xl rotate-180' />
                                         }
                                     </div>

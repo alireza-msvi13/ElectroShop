@@ -15,7 +15,6 @@ export default function Page() {
   if (isLoading) {
     return <span className='font-morabba'>در حال لود شدن و ...</span>
   }
-  console.log(data);
   return (
     <>
       <h4 className=' font-morabba text-main text-2xl'>{data?.adminName} خوش اومدی !</h4>
