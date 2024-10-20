@@ -42,7 +42,20 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     }, [id, getProduct, router]);
 
     if (loading) {
-        return <div className=' flex-center h-screen text-2xl text-main'>در حال بارگذاری...</div>;
+        return <div className=' flex-center h-screen'>
+            <div className="w-full gap-x-2 flex justify-center items-center">
+                <div
+                    className="w-5 bg-[#B065D8] animate-pulse h-5 rounded-full"
+                ></div>
+                <div
+                    className="w-5 animate-pulse h-5 bg-[#9C4CC1] rounded-full"
+                ></div>
+                <div
+                    className="w-5 h-5 animate-pulse bg-[#7B1FA2] rounded-full"
+                ></div>
+            </div>
+
+        </div>
     }
 
     if (!product) {
