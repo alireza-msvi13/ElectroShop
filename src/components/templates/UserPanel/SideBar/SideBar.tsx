@@ -32,6 +32,7 @@ export default function SideBar() {
         toast.success("با موفقیت از حساب خود خارج شدید");
         router.replace("/");
         router.refresh()
+        localStorage.removeItem("cart")
     };
 
     return (

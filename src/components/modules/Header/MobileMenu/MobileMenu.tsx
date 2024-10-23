@@ -6,11 +6,14 @@ import { PiShoppingCartSimpleFill } from 'react-icons/pi';
 import { useGetMeUserQuery } from '@/redux/api/authApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeSideBar } from '@/redux/slice/sideBarMobileSlice';
+import { getCookie } from 'cookies-next';
 
 const MobileMenu: React.FC = () => {
-    const { data } = useGetMeUserQuery();
+    const { data, isLoading } = useGetMeUserQuery();
     const isSideBarOpen = useSelector((store: any) => store.sideBarMobileSlice.isSideBarOpen);
     const dispatch = useDispatch();
+    const token = getCookie("token")
+
 
     return (
         <>
@@ -55,18 +58,20 @@ const MobileMenu: React.FC = () => {
                         </li>
                     </ul>
                     {
-                        !data ?
-                            <div className="flex-center gap-3 mb-3 mt-6 text-white">
-                                <div className="btn w-[50%]">
-                                    <Link href="/login"> ورود</Link>
+                        !isLoading ?
+                            !token || !data ?
+                                <div className="flex-center gap-3 mb-3 mt-6 text-white">
+                                    <div className="btn w-[50%]" onClick={() => dispatch(closeSideBar())}>
+                                        <Link className='w-full text-center' href="/login"> ورود</Link>
+                                    </div>
+                                    <div className="btn w-[50%]" onClick={() => dispatch(closeSideBar())}>
+                                        <Link className='w-full text-center' href="/register">ثبت نام</Link>
+                                    </div>
                                 </div>
-                                <div className="btn w-[50%]">
-                                    <Link href="/register">ثبت نام</Link>
+                                : <div className="btn w-full text-white before:w-full mb-3 mt-6" onClick={() => dispatch(closeSideBar())}>
+                                    <Link className='w-full text-center' href="/user-panel">پنل کاربری</Link>
                                 </div>
-                            </div>
-                            : <div className="btn w-full text-white before:w-full mb-3 mt-6">
-                                <Link href="/user-panel">پنل کاربری</Link>
-                            </div>
+                            : ""
                     }
                     <div className="btn w-full text-white before:w-full">
                         <Link href="/user-panel/fav">علاقه مندی</Link>

@@ -71,10 +71,10 @@ const ShopCart: React.FC = () => {
                         </div>
                         <div className="flex-center flex-col gap-3 mt-3 px-4 text-white">
                             <div className="btn w-full before:w-full text-sm sm:text-base">
-                                <Link href="/cart" onClick={() => dispatch(closeShopCart())}>مشاهده سبد خرید</Link>
+                                <Link className='w-full text-center' href="/cart" onClick={() => dispatch(closeShopCart())}>مشاهده سبد خرید</Link>
                             </div>
                             <div className="btn w-full before:w-full text-sm sm:text-base" onClick={() => dispatch(closeShopCart())}>
-                                <Link href="/checkout">
+                                <Link href="/checkout" className='w-full text-center'>
                                     نهایی کردن خرید
                                 </Link>
                             </div>

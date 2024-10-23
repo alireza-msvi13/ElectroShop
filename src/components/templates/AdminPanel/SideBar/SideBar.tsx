@@ -34,6 +34,7 @@ export default function SideBar() {
         deleteCookie('refreshToken');
         toast.success("با موفقیت از حساب خود خارج شدید");
         router.push('/');
+        localStorage.removeItem("cart")
     };
 
 
