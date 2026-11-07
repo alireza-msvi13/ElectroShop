@@ -17,17 +17,6 @@
 <img src="https://img.shields.io/badge/Swiper-6332F6?style=for-the-badge&logo=swiper&logoColor=white" alt="Swiper" />
 <img src="https://img.shields.io/badge/React_Icons-E91E63?style=for-the-badge&logo=react&logoColor=white" alt="React Icons" />
 </p>
-<p align="center">
-<a href="https://github.com/alireza-msvi13/ElectroShop">
-  <img src="https://img.shields.io/badge/📦_Source_Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Source Code" />
-</a>
-<a href="https://github.com/alireza-msvi13/ElectroShop/issues">
-  <img src="https://img.shields.io/badge/Report_Bug-dc2626?style=for-the-badge&logo=github&logoColor=white" alt="Report Bug" />
-</a>
-<a href="https://github.com/alireza-msvi13/ElectroShop">
-  <img src="https://img.shields.io/badge/⭐_Star_Repository-facc15?style=for-the-badge&logo=github&logoColor=black" alt="Star Repository" />
-</a>
-</p>
 
 # 🛒 ElectroShop | E-commerce Platform
 
